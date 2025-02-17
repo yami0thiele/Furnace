@@ -6,6 +6,6 @@ title: Furnace
 
 さて、「存在」は何を守ろうとしていたのでしょうか？
 
-X (Formaly known as Twitter) [@dark_thiele](https://twitter.com/dark_thiele)
+X (Formerly known as Twitter) [@dark_thiele](https://twitter.com/dark_thiele)
 
 ---
