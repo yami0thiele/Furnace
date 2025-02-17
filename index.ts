@@ -1,6 +1,7 @@
 import { exists, mkdir, copyFile, readFile, readdir } from "fs/promises";
 import matter from "gray-matter";
 import { marked } from "marked";
+import { Timeline } from "./functions/Timeline";
 
 // public が存在しない場合は作成
 !(await exists("./public")) && (await mkdir("./public", { recursive: true }));
@@ -46,8 +47,10 @@ files
     );
 
     const result = layoutContent
-      .replace("{{#Title}}", parsed.data.title)
-      .replace("{{#Body}}", await marked(parsed.content));
+      .replaceAll("{{#Title}}", parsed.data.title)
+      .replaceAll("{{#Body}}", await marked(parsed.content))
+      .replaceAll("{{#Date}}", parsed.data.date)
+      .replaceAll("{{@Timeline}}", await Timeline());
 
     // ファイルを書き出す。
     const dirPath = file.parentPath.replace(/^pages/, "public");

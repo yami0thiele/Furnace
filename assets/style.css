@@ -1,0 +1,39 @@
+:root {
+    --swatch-1: oklch(95% 0.02 250);
+    --swatch-2: oklch(87% 0.06 250);
+    --swatch-3: oklch(80% 0.1 250);
+    --swatch-4: oklch(76% 0.13 250);
+    --swatch-5: oklch(62% 0.22 250);
+    --swatch-6: oklch(51% 0.15 250);
+    --swatch-7: oklch(42% 0.15 250);
+    --swatch-8: oklch(22% 0.05 250);
+    --swatch-9: oklch(17% 0.03 250);
+    --swatch-10: oklch(14% 0.02 250);
+
+    --text-1: var(--swatch-1);
+    --text-2: var(--swatch-2);
+    --link: var(--swatch-3);
+    --surface-1: var(--swatch-10);
+    --surface-2: var(--swatch-9);
+    --surface-3: var(--swatch-8);
+}
+
+body {
+    background: var(--surface-1);
+    color: var(--text-1);
+
+    @media (max-width: 800px) {
+        width: 100%;
+    }
+    @media (min-width: 800px) {
+        padding: 0 20%;
+    }
+}
+
+a {
+    color: var(--link);
+}
+
+a:visited {
+    color: var(--link);
+}
