@@ -2,17 +2,20 @@ import { exists, mkdir, copyFile, readFile, readdir } from "fs/promises";
 import matter from "gray-matter";
 import { marked } from "marked";
 
+// public が存在しない場合は作成
+!(await exists("./public")) && (await mkdir("./public", { recursive: true }));
+
 // assetsの中身 を public にコピー
 const assets = await readdir("./assets", {
   recursive: true,
   withFileTypes: true,
 });
 for (const asset of assets) {
-  const path = asset.parentPath.replace(/^assets/, "public");
+  const path = asset.parentPath.replace(/^assets/, "public/assets");
   if (asset.isDirectory()) {
-    !exists(path) && (await mkdir(path, { recursive: true }));
     continue;
   }
+  !(await exists(path)) && (await mkdir(path, { recursive: true }));
   await copyFile(`${asset.parentPath}/${asset.name}`, `${path}/${asset.name}`);
 }
 
@@ -46,11 +49,9 @@ files
       .replace("{{#Title}}", parsed.data.title)
       .replace("{{#Body}}", await marked(parsed.content));
 
-    console.log(result);
-
     // ファイルを書き出す。
     const dirPath = file.parentPath.replace(/^pages/, "public");
-    !exists(dirPath) && (await mkdir(dirPath, { recursive: true }));
+    !(await exists(dirPath)) && (await mkdir(dirPath, { recursive: true }));
     await Bun.file(`${dirPath}/${file.name}`.replace(".md", ".html")).write(
       result,
     );
